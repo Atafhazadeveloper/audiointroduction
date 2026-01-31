@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fill in the Gaps – Listening</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 10px;
+      line-height: 1.6;
+    }
+    audio {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .gap {
+      display: inline-block;
+      min-width: 90px;
+      padding: 6px 10px;
+      margin: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f4f4f4;
+      text-align: center;
+      font-weight: bold;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0 30px;
+    }
+    .option-btn {
+      padding: 10px 14px;
+      border-radius: 20px;
+      border: 1px solid #333;
+      background: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .option-btn:active {
+      background: #ddd;
+    }
+    button.check {
+      padding: 12px 18px;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Listen and Fill in the Gaps</h2>
+
+  <audio controls>
+    <source src="audio.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <p>
+    Hi, I’m <span class="gap" data-index="0"></span>, but all my friends call me <span class="gap" data-index="1"></span>.
+    I’m <span class="gap" data-index="2"></span>. I’m from <span class="gap" data-index="3"></span>.
+    We are a <span class="gap" data-index="4"></span> family.
+  </p>
+
+  <p>
+    My parents are <span class="gap" data-index="5"></span>, I live with my <span class="gap" data-index="6"></span> who is remarried.
+    I have <span class="gap" data-index="7"></span> younger brothers, Mark, who is <span class="gap" data-index="8"></span> and Paul, who is <span class="gap" data-index="9"></span>.
+  </p>
+
+  <p>
+    My stepdad has <span class="gap" data-index="10"></span> children, so there are <span class="gap" data-index="11"></span> children in the family now.
+    It is a bit <span class="gap" data-index="12"></span> but we <span class="gap" data-index="13"></span> well and we have a lot of <span class="gap" data-index="14"></span>.
+  </p>
+
+  <p>
+    The only problem is that I have to <span class="gap" data-index="15"></span> my room with my <span class="gap" data-index="16"></span>.
+    I can’t wait to have my <span class="gap" data-index="17"></span> room.
+  </p>
+
+  <h3>Tap a word, then tap a gap</h3>
+
+  <div class="options" id="options"></div>
+
+  <button class="check" onclick="checkAnswers()">Check answers</button>
+
+  <script>
+    const answers = [
+      "Elizabeth", "Lisa", "fourteen", "California", "big",
+      "divorced", "mum", "two", "nine", "seven",
+      "three", "six", "strange", "get on", "fun",
+      "share", "stepsister", "own"
+    ];
+
+    let selectedWord = null;
+
+    const optionsContainer = document.getElementById('options');
+
+    answers
+      .slice()
+      .sort(() => Math.random() - 0.5)
+      .forEach(word => {
+        const btn = document.createElement('button');
+        btn.textContent = word;
+        btn.className = 'option-btn';
+        btn.onclick = () => selectedWord = word;
+        optionsContainer.appendChild(btn);
+      });
+
+    document.querySelectorAll('.gap').forEach(gap => {
+      gap.onclick = () => {
+        if (selectedWord) {
+          gap.textContent = selectedWord;
+          gap.dataset.value = selectedWord;
+        }
+      };
+    });
+
+    function checkAnswers() {
+      document.querySelectorAll('.gap').forEach(gap => {
+        const index = gap.dataset.index;
+        if (gap.dataset.value === answers[index]) {
+          gap.style.backgroundColor = '#c8f7c5';
+        } else {
+          gap.style.backgroundColor = '#f7c5c5';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
